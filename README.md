@@ -47,3 +47,23 @@ Options:
   -h, --help                 Print help
   -V, --version              Print version
 ```
+
+## Daemonize the bot with systemctl for linux 
+### telegram_ngrok_bot.service
+
+```sh
+[Unit]
+Description=Telegram ngrok bot to fetch the active tunnels
+ConditionFileIsExecutable=<replace-with-path-to>/telegram_ngrok_bot
+
+[Service]
+StartLimitInterval=5
+StartLimitBurst=10
+ExecStart=<replace-with-path-to>/telegram_ngrok_bot "--ngrok-config" "<replace-with-path-to>/ngrok.yml" "--config" "<replace-with-path-to>/telegram_ngrok_bot/bot.yml"
+
+
+Restart=always
+RestartSec=15
+[Install]
+WantedBy=multi-user.target
+```
